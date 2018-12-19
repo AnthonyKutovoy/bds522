@@ -9,10 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Anthony Kutovoy" />
 
 
-<title>Do craft beer ratings front-run sales?</title>
+<title></title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -205,87 +204,13 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Do craft beer ratings front-run sales?</h1>
-<h4 class="author"><em>Anthony Kutovoy</em></h4>
-<h4 class="date"><em>December 7, 2018</em></h4>
 
 </div>
 
 
-<div id="introduction" class="section level2">
-<h2>Introduction</h2>
-<p>In modern history, Beer has been a big business worldwide and especially in the United states. Here it is manufactured by more than 3,000 breweries, which range in size from industry giants to brew pubs and microbreweries. The United States produced 196 million barrels (23.0 GL) of beer in 2012, and consumes roughly 28 US gallons (110 L) of beer per capita annually in USA (citation coming).</p>
-<p>Although lager &amp; pilsner sales from large breweries have preserved their dominance for 100 years, since the 1990s their market share has been steadily decreasing due to emergence of craft and particularly IPA-style beers, which have been leading craft sales figures for 2 decades. While growth in craft sales has had a steady, linear growth pattern between 1990s and mid-2000s, over the last decade the number of craft breweries and the volume of craft sales have been increasing exponentially (citation coming). I seek to investigate whether craft beer rating trends during the slower growth periods for top-selling styles are correlated with future accelerating growth in sales.</p>
-</div>
-<div id="analytical-strategy" class="section level2">
-<h2>Analytical Strategy</h2>
-<div id="data" class="section level3">
-<h3>Data</h3>
-<p>Roughly 1.5 million observations of 104 beer styles (mostly craft) between 2000 and 2012 are provided from Beeradvocate. Upon reviewing the data, it became apparent that most reviewers have submitted multiple entries, which makes weighing of each review unpredictable. To control for this factor, a sample was drawn from the dataset such that each observation had a unique review_profilename. Of interest are the following variables: review_profilename, review_time, review_overall, and beer_style.</p>
-<pre class="r"><code>summary(unique_reviews)</code></pre>
-<pre><code>##    review_profilename  review_time        review_overall 
-##             :    1    Min.   :9.730e+08   Min.   :1.000  
-##  0110x011   :    1    1st Qu.:1.195e+09   1st Qu.:3.500  
-##  01Ryan10   :    1    Median :1.249e+09   Median :4.000  
-##  02maxima   :    1    Mean   :1.238e+09   Mean   :3.945  
-##  03SVTCobra :    1    3rd Qu.:1.294e+09   3rd Qu.:4.500  
-##  04101Brewer:    1    Max.   :1.326e+09   Max.   :5.000  
-##  (Other)    :33382                                       
-##                             beer_style   
-##  American IPA                    : 3163  
-##  American Double / Imperial IPA  : 2203  
-##  American Double / Imperial Stout: 2055  
-##  American Pale Ale (APA)         : 1438  
-##  Russian Imperial Stout          : 1338  
-##  American Adjunct Lager          :  956  
-##  (Other)                         :22235</code></pre>
-<pre class="r"><code>hist(review_overall)</code></pre>
-<p><img src="conclusions_files/figure-html/unnamed-chunk-2-1.png" width="672" /> <br>Beer ratings in the sample are left-skewed, indicating that most reviewers enjoyed the beers they were reviewing.</p>
-<pre class="r"><code>hist(review_time)</code></pre>
-<pre><code>## Warning in n * h: NAs produced by integer overflow</code></pre>
-<pre><code>## Warning in breaks[-1L] + breaks[-nB]: NAs produced by integer overflow</code></pre>
-<p><img src="conclusions_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Distribution by time shows an increase in frequency of reviews in later years, with the median of Unix date of 1249000000 or July 31st, 2009.</p>
-</div>
-<div id="methods" class="section level3">
-<h3>Methods</h3>
-<p>IPAs have been dominating craft beer sales for decades whule Stouts have emerged more recently as a popular style, so our analysis will focus on these two. Using the median date of 1249000000, I will be using a t-test to compare mean ratings respecitvely for IPAs and Stouts to see if there is a difference between them as overall craft sales increased over time.</p>
-<p>My null hypothesis are <br> <span class="math inline">\(\mu(ipa_1) = \mu(ipa_2)\)</span> <br> <span class="math inline">\(\mu(stout_1) = \mu(stout_2)\)</span></p>
-<pre class="r"><code>ipas &lt;- unique_reviews %&gt;% filter(str_detect(beer_style, &quot;IPA&quot;))
-stouts &lt;- unique_reviews %&gt;% filter(str_detect(beer_style, &quot;Stout|Black|Porter&quot;))
-
-t.test(ipas$review_overall[ipas$review_time&gt;1249000000], ipas$review_overall[ipas$review_time&lt;1249000000], mu=0, alternative = &quot;two.sided&quot;)</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  ipas$review_overall[ipas$review_time &gt; 1.249e+09] and ipas$review_overall[ipas$review_time &lt; 1.249e+09]
-## t = 1.2803, df = 5156.3, p-value = 0.2005
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -0.01389368  0.06620507
-## sample estimates:
-## mean of x mean of y 
-##  4.089796  4.063640</code></pre>
-<pre class="r"><code>t.test(stouts$review_overall[stouts$review_time&gt;1249000000], stouts$review_overall[stouts$review_time&lt;1249000000], mu=0, alternative = &quot;two.sided&quot;)</code></pre>
-<pre><code>## 
-##  Welch Two Sample t-test
-## 
-## data:  stouts$review_overall[stouts$review_time &gt; 1.249e+09] and stouts$review_overall[stouts$review_time &lt; 1.249e+09]
-## t = 2.6781, df = 5790.7, p-value = 0.007426
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  0.01375136 0.08887428
-## sample estimates:
-## mean of x mean of y 
-##  4.145017  4.093704</code></pre>
-</div>
-</div>
-<div id="results" class="section level2">
-<h2>Results</h2>
-<p>t.test for IPAs has a p-value of 0.53, so we cannot reject the null hypothesis. for Stouts, however, the p-value of 0.0074 shows statistical significance in the difference of the mean rating between 2000-2009 and 2009-2012 periods.</p>
-</div>
-<div id="conclusion" class="section level2">
-<h2>Conclusion</h2>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>Although there do not appear to be statistically significant increases in average reviews of IPA or Sours between the 2008-2010 and 2011 periods, average reviews for Stouts show a clear positive trend between these two periods. Although my initial hypothesis that correlation exists between sales of a particular style and its reviews has not been confirmed, there is a possibility that a positive trend in average reviews could front-run the future growth in sales: while my dataset only contained observations through January of 2012, in recent years the sales of stouts have been <a href="https://www.beveragedaily.com/Article/2018/11/07/Stout-the-fastest-growing-beer-style-in-the-UK">accelerating</a>. More analysis with observations over a longer period is needed to test this hypothesis.</p>
 </div>
 <div id="misc-analyses" class="section level2">
 <h2>Misc analyses</h2>
