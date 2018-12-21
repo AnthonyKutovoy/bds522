@@ -101,17 +101,17 @@ Although I was originally planning to use simple linear regression to model dist
 
 Instead, I decided to break down each style subset into two time periods, 2008-2010 and 2011, and use a two-sample t-test for each style to compare the means between the two periods. Since frequency distributions for reviews are left-skewed in all of the subsets, this approach attempts to identify a trend in average reviews for each style while keeping the samples sizes close between the two periods.
 
-My **H0**s are as follows:
+My Null Hypotheses are as follows:
 
-**Âµ**(IPA Reviews, 2011) = **Âµ**(IPA Reviews, 2008-2010)  
-**Âµ**(Sour Reviews, 2011) = **Âµ**(Sour Reviews, 2008-2010)  
-**Âµ**(Stout Reviews, 2011) = **Âµ**(Stout Reviews, 2008-2010)
+**µ**(IPA Reviews, 2011) = **µ**(IPA Reviews, 2008-2010)  
+**µ**(Sour Reviews, 2011) = **µ**(Sour Reviews, 2008-2010)  
+**µ**(Stout Reviews, 2011) = **µ**(Stout Reviews, 2008-2010)
 
-My **Ha**s are as follows:
+My Alternate Hypotheses are as follows:
 
-**Âµ**(IPA Reviews, 2011) > **Âµ**(IPA Reviews, 2008-2010)  
-**Âµ**(Sour Reviews, 2011) > **Âµ**(Sour Reviews, 2008-2010)  
-**Âµ**(Stout Reviews, 2011) > **Âµ**(Stout Reviews, 2008-2010)
+**µ**(IPA Reviews, 2011) > **µ**(IPA Reviews, 2008-2010)  
+**µ**(Sour Reviews, 2011) > **µ**(Sour Reviews, 2008-2010)  
+**µ**(Stout Reviews, 2011) > **µ**(Stout Reviews, 2008-2010)
 
 ## Results
 

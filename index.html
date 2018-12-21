@@ -240,14 +240,14 @@ $(document).ready(function () {
 <p>Although I was originally planning to use simple linear regression to model distribution of average rating for each style group as a function of time, a closer analysis of the data revealed that using regression is problematic. In the figures below, it is obvious that the two important assumptions regarding distribution of residuals (normality and sum being close to zero) do not hold. Each of the 3 style groups have similar distributions of residuals:</p>
 <p><img src="residuals_norm.png" /> <img src="residuals_sum.png" /></p>
 <p>Instead, I decided to break down each style subset into two time periods, 2008-2010 and 2011, and use a two-sample t-test for each style to compare the means between the two periods. Since frequency distributions for reviews are left-skewed in all of the subsets, this approach attempts to identify a trend in average reviews for each style while keeping the samples sizes close between the two periods.</p>
-<p>My <strong>H0</strong>s are as follows:</p>
-<p><strong>Âµ</strong>(IPA Reviews, 2011) = <strong>Âµ</strong>(IPA Reviews, 2008-2010)<br />
-<strong>Âµ</strong>(Sour Reviews, 2011) = <strong>Âµ</strong>(Sour Reviews, 2008-2010)<br />
-<strong>Âµ</strong>(Stout Reviews, 2011) = <strong>Âµ</strong>(Stout Reviews, 2008-2010)</p>
-<p>My <strong>Ha</strong>s are as follows:</p>
-<p><strong>Âµ</strong>(IPA Reviews, 2011) &gt; <strong>Âµ</strong>(IPA Reviews, 2008-2010)<br />
-<strong>Âµ</strong>(Sour Reviews, 2011) &gt; <strong>Âµ</strong>(Sour Reviews, 2008-2010)<br />
-<strong>Âµ</strong>(Stout Reviews, 2011) &gt; <strong>Âµ</strong>(Stout Reviews, 2008-2010)</p>
+<p>My Null Hypotheses are as follows:</p>
+<p><strong>µ</strong>(IPA Reviews, 2011) = <strong>µ</strong>(IPA Reviews, 2008-2010)<br />
+<strong>µ</strong>(Sour Reviews, 2011) = <strong>µ</strong>(Sour Reviews, 2008-2010)<br />
+<strong>µ</strong>(Stout Reviews, 2011) = <strong>µ</strong>(Stout Reviews, 2008-2010)</p>
+<p>My Alternate Hypotheses are as follows:</p>
+<p><strong>µ</strong>(IPA Reviews, 2011) &gt; <strong>µ</strong>(IPA Reviews, 2008-2010)<br />
+<strong>µ</strong>(Sour Reviews, 2011) &gt; <strong>µ</strong>(Sour Reviews, 2008-2010)<br />
+<strong>µ</strong>(Stout Reviews, 2011) &gt; <strong>µ</strong>(Stout Reviews, 2008-2010)</p>
 </div>
 </div>
 <div id="results" class="section level2">
