@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Can rising average reviews of a beer style predict explosive growth in sales?</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Anthony Kutovoy</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">BDS 522 Project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Can rising average reviews of a beer style predict explosive growth in sales?</h1>
+
+</div>
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>With $26 billion in US sales just in 2017 and growing at an annual rate of 5-8% according to the <a href="https://www.brewersassociation.org/statistics/national-beer-sales-production-data/">Brewers Association</a>, craft beer is one of the most exciting growth areas in the alcohol beverage industry. In North America, various craft styles are manufactured by more than 3,000 breweries, which range in size from industry giants to brewpubs and microbreweries, with the latter fueling much of the growth over the past decade (source: Brewers Association):</p>
+<div class="figure">
+<img src="brewery_growth.png" />
+
+</div>
+<p>In his article <a href="https://www.brewersassociation.org/insights/the-next-ipa/">What’s the next IPA?</a> , Bart Watson reviews a fascinating aspect of craft’s recent explosive growth: popularity of IPAs is the engine behind it, going from 8% to 27.4% of all craft styles between 2008 and 2015.</p>
+<div class="figure">
+<img src="ipa_share.png" />
+
+</div>
+<p>Armed with a dataset of over 1.5 million craft reviews from <a href="https://www.beeradvocate.com/">BeerAdvocate</a>, I seek to investigate predictive power of reviews focusing on 3 craft styles which originally comprised a minor proportion of overall craft sales, prior to undergoing an explosive growth in popularity: IPAs, Sours (as discussed by Watson), and Stouts as per <a href="https://www.americancraftbeer.com/stouts-now-the-uks-fastest-growing-beer-style/">American Craft Beers</a>.</p>
+<p><strong>My hypothesis: during a slower growth period for a particular craft style, statistically significant positive trend in reviews over time forecasts future explosive growth.</strong></p>
+<p>Proving this hypothesis would create a signal which would allow brewers to focus on a particular style and front-run its popularity.</p>
+<p><br<br></p>
+</div>
+<div id="analytical-strategy" class="section level2">
+<h2>Analytical Strategy</h2>
+<div id="data" class="section level3">
+<h3>Data</h3>
+<p>The <a href="http://www.kaggle.com/rdoume/beerreviews">beer_reviews dataset</a> contains roughly 1.5 million observations of 104 beer styles (mostly craft) collected by <a href="http://www.beeradvocate.com">BeerAdvocate</a> between January 2000 and January 2012. Upon reviewing the data it became apparent that most reviewers have submitted multiple entries, which introduces undesirable variation. To control for this factor an SRS was drawn from the dataset such that each observation belonged to a unique profile. The dataset was narrowed further to include observations only within the period of interest (01/01/2008 to 01/01/2012) and variables of interest: review_profilename, review_time, review_overall, and beer_style. The resulting dataset was checked for NAs (none were found).</p>
+<p>Finally, the resulting dataset was subsetted into 3 sets, each corresponding to one of the style groups of interest:</p>
+<div class="figure">
+<img src="beer_styles.png" />
+
+</div>
+<p>Frequency of the reviews vs time for the 3 style groups were distributed similar to each other, left-skewed with most reviews submitted towards the end of the period (2011). Time stamp for each review is presented in a 10-digit unix format, with <a href="https://www.epochconverter.com">EpochConverter</a> used for conversion to human time. As a reference for the figures below, 12000000 corresponds to 01/10/2008, 12800000 corresponds to 06/24/2010, and 13200000 corresponds to 10/30/2011 (all timestamp values were divided by 100 to prevent integer overflows).</p>
+<pre class="r"><code>hist(ipas$review_time/100, main = &quot;Frequency of Reviews for IPAs 2008-2011&quot;, xlab =&quot;Time in Unix/100&quot;, ylab = &quot;Number of Reviews&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>hist(sours$review_time/100, main = &quot;Frequency of Reviews for Sours 2008-2011&quot;, xlab =&quot;Time in Unix/100&quot;, ylab = &quot;Number of Reviews&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>hist(stouts$review_time/100, main = &quot;Frequency of Reviews for Stouts 2008-2011&quot;, xlab =&quot;Time in Unix/100&quot;, ylab = &quot;Number of Reviews&quot;)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+</div>
+<div id="methods" class="section level3">
+<h3>Methods</h3>
+<p>Although I was originally planning to use simple linear regression to model distribution of average rating for each style group as a function of time, a closer analysis of the data revealed that using regression is problematic. In the figures below, it is obvious that the two important assumptions regarding distribution of residuals (normality and sum being close to zero) do not hold. Each of the 3 style groups have similar distributions of residuals:</p>
+<p><img src="residuals_norm.png" /> <img src="residuals_sum.png" /></p>
+<p>Instead, I decided to break down each style subset into two time periods, 2008-2010 and 2011, and use a two-sample t-test for each style to compare the means between the two periods. Since frequency distributions for reviews are left-skewed in all of the subsets, this approach attempts to identify a trend in average reviews for each style while keeping the samples sizes close between the two periods.</p>
+<p>My Null Hypotheses are as follows:</p>
+<p><strong>µ</strong>(IPA Reviews, 2011) = <strong>µ</strong>(IPA Reviews, 2008-2010)<br />
+<strong>µ</strong>(Sour Reviews, 2011) = <strong>µ</strong>(Sour Reviews, 2008-2010)<br />
+<strong>µ</strong>(Stout Reviews, 2011) = <strong>µ</strong>(Stout Reviews, 2008-2010)</p>
+<p>My Alternate Hypotheses are as follows:</p>
+<p><strong>µ</strong>(IPA Reviews, 2011) &gt; <strong>µ</strong>(IPA Reviews, 2008-2010)<br />
+<strong>µ</strong>(Sour Reviews, 2011) &gt; <strong>µ</strong>(Sour Reviews, 2008-2010)<br />
+<strong>µ</strong>(Stout Reviews, 2011) &gt; <strong>µ</strong>(Stout Reviews, 2008-2010)</p>
+</div>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p><strong>T-test for IPAs</strong></p>
+<pre class="r"><code>t_ipas</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  ipas$review_overall[ipas$review_time &gt; 1293840060] and ipas$review_overall[ipas$review_time &lt; 1293840060]
+## t = 1.5852, df = 4084.9, p-value = 0.0565
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  -0.001375566          Inf
+## sample estimates:
+## mean of x mean of y 
+##   4.10000   4.06368</code></pre>
+<p><strong>T-test for Sours</strong></p>
+<pre class="r"><code>t_sours</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  sours$review_overall[sours$review_time &gt; 1293840060] and sours$review_overall[sours$review_time &lt; 1293840060]
+## t = 1.1996, df = 662.77, p-value = 0.1154
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  -0.03477399         Inf
+## sample estimates:
+## mean of x mean of y 
+##  3.760223  3.667006</code></pre>
+<p><strong>T-test for Stouts</strong></p>
+<pre class="r"><code>t_stouts</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  stouts$review_overall[stouts$review_time &gt; 1293840060] and stouts$review_overall[stouts$review_time &lt; 1293840060]
+## t = 5.4271, df = 4375.3, p-value = 3.019e-08
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  0.07994926        Inf
+## sample estimates:
+## mean of x mean of y 
+##  4.203704  4.088975</code></pre>
+<p>After running one-tailed tests of means on the 3 sets of samples with a 0.05 critical value, the results are as follows: the difference in average reviews for Stouts appears to be highly significant with <strong>p &lt; 0.0001</strong>; IPAs fail the test of significance with a close value of <strong>p = 0.057</strong>; and Sours fail the test of significance with <strong>p = 0.116</strong></p>
+<p>Unfortunately my analysis has a number of significant limitations. First, not being able to utilize regression to model reviews as a continuous variable over time severly limits the predictive potential of my study. I picked an arbitrary chronological breakdown for my samples which may have had a direct impact on the significance of the results (although the p-value was so small for Stouts this factor probably did not affect it). Second, I have only analyzed samples for styles which are currently popular: another study of currently unpopular styles is needed to see whether these styles had evidence of rising review scores in the past. Finally, since my samples are obtained through an observational study, there are many confounders. For example, people tend to drink lighter styles when ambient temperature is high and darker styles when ambient temperature is low, and since the dataset has no geographical data for each observation there is no way to control for seasonal variations.</p>
+</div>
+<div id="conclusions" class="section level2">
+<h2>Conclusions</h2>
+<p>My analyses failed to reject the null hypothesis for IPAs and Sours. Although the result for Stouts is highly significant and seems to confirm the hypothesis, concerns outlined in the Results section remain. To strengthen the proof my hypothesis, I would need to obtain data which satisfies assumptions for linear regression and model reviews vs time as a continous variable, run a study which analyzes past trends in review scores for unpopular beer styles, and control for as many confounders as I can.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
