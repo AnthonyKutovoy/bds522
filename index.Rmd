@@ -1,7 +1,5 @@
 ---
-title: "Correlation between sales of craft beer styles and reviews"
-author: "Anthony Kutovoy"
-date: "December 7, 2018"
+title: "Can improving reviews of a beer style predict explosive growth in sales?"
 output: html_document
 ---
 
@@ -56,7 +54,7 @@ popularity: IPAs, Sours (as discussed by Watson), and Stouts as per [American
 Craft
 Beers](https://www.americancraftbeer.com/stouts-now-the-uks-fastest-growing-beer-style/).  
   
-**My hypothesis: during a slower growth period for craft style, statistically
+**My hypothesis: during a slower growth period for a particular craft style, statistically
 significant positive trend in reviews over time forecasts future explosive
 growth.**
 
