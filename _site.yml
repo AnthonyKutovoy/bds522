@@ -1,14 +1,8 @@
 name: "my-website"
 output_dir: "."
 navbar:
-  title: "BDS522: What is the next IPA? "
+  title: "Anthony Kutovoy"
   left:
-    - text: "Introduction"
+    - text: "BDS 522 Project"
       href: index.html
-    - text: "Data and Methods"
-      href: data.html
-    - text: "Results"
-      href: results.html
-    - text: "Conclusions"
-      href: conclusions.html
 
