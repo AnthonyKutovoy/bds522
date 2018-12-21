@@ -1,12 +1,10 @@
 ---
 title: "Can rising average reviews of a beer style predict explosive growth in sales?"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
-library(latexpdf)
 library(stringr)
 library(markdown)
 beer_reviews <- read.csv("beer_reviews.csv")
@@ -19,11 +17,11 @@ ipas <- unique_reviews %>% filter(str_detect(beer_style, "IPA"))
 sours <- unique_reviews %>% filter(str_detect(beer_style, "Sour|Gose|Wild|Fruit"))
 stouts <- unique_reviews %>% filter(str_detect(beer_style, "Stout|Black|Porter"))
 
-t_ipas <- t.test(ipas$review_overall[ipas$review_time>1293840060], ipas$review_overall[ipas$review_time<1293840060], mu=0, alternative = "greater", conf.level = 0.95)
+t_ipas <- t.test(ipas$review_overall[ipas$review_time>1293840060], ipas$review_overall[ipas$review_time<1293840060], mu=0, alternative = "greater")
 
-t_sours <- t.test(sours$review_overall[sours$review_time>1293840060], sours$review_overall[sours$review_time<1293840060], mu=0, alternative = "greater", conf.level = 0.95)
+t_sours <- t.test(sours$review_overall[sours$review_time>1293840060], sours$review_overall[sours$review_time<1293840060], mu=0, alternative = "greater")
 
-t_stouts <- t.test(stouts$review_overall[stouts$review_time>1293840060], stouts$review_overall[stouts$review_time<1293840060], mu=0, alternative = "greater", conf.level = 0.95)
+t_stouts <- t.test(stouts$review_overall[stouts$review_time>1293840060], stouts$review_overall[stouts$review_time<1293840060], mu=0, alternative = "greater")
 ```
 
 ## Introduction
@@ -102,15 +100,15 @@ Instead, I decided to break down each style subset into two time periods, 2008-2
 
 My Null Hypotheses are as follows:
 
-**µ**(IPA Reviews, 2011) = **µ**(IPA Reviews, 2008-2010)  
-**µ**(Sour Reviews, 2011) = **µ**(Sour Reviews, 2008-2010)  
-**µ**(Stout Reviews, 2011) = **µ**(Stout Reviews, 2008-2010)
+**mu**(IPA Reviews, 2011) = **mu**(IPA Reviews, 2008-2010)  
+**mu**(Sour Reviews, 2011) = **mu**(Sour Reviews, 2008-2010)  
+**mu**(Stout Reviews, 2011) = **mu**(Stout Reviews, 2008-2010)
 
 My Alternate Hypotheses are as follows:
 
-**µ**(IPA Reviews, 2011) > **µ**(IPA Reviews, 2008-2010)  
-**µ**(Sour Reviews, 2011) > **µ**(Sour Reviews, 2008-2010)  
-**µ**(Stout Reviews, 2011) > **µ**(Stout Reviews, 2008-2010)
+**mu**(IPA Reviews, 2011) > **mu**(IPA Reviews, 2008-2010)  
+**mu**(Sour Reviews, 2011) > **mu**(Sour Reviews, 2008-2010)  
+**mu**(Stout Reviews, 2011) > **mu**(Stout Reviews, 2008-2010)
 
 ## Results
 
